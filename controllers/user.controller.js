@@ -52,13 +52,12 @@ exports.signup = (req, res) => {
 }
 
 exports.login = (req, res) => {
-    
+
+    //Username and Password manipulation from the header
     var usernamePassword = req.headers.authorization.split(" ")[1];
     usernamePassword = atobu(usernamePassword);
     const username = usernamePassword.split(":")[0];
     const password = usernamePassword.split(":")[1];
-    console.log(username, password);
-    
 
     //Validate Request    
     if (!username && !password) {
@@ -135,8 +134,8 @@ exports.getCouponCode = (req, res) => {
         });
         return;
     }
-    const token = req.headers.authorization.split(" ")[1];   
-    User.findOne({ accesstoken: token }, {coupons: {$elemMatch: { id: req.query.code }} }, { "coupons": 1 })
+    const token = req.headers.authorization.split(" ")[1];
+    User.findOne({ accesstoken: token }, { coupons: { $elemMatch: { id: req.query.code } } }, { "coupons": 1 })
         .then(
             data => {
                 res.json({
@@ -153,7 +152,6 @@ exports.getCouponCode = (req, res) => {
 
 exports.bookShow = (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
-    console.log(token);
     const update = { $push: { bookingRequests: req.body.bookingRequest } }
     User.findOneAndUpdate({ accesstoken: token }, update)
         .then(

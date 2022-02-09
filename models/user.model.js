@@ -25,7 +25,7 @@ module.exports = (mongoose) => {
                 require: true
             },
             username: {
-                type: String,                
+                type: String,
             },
             contact: {
                 type: Number
@@ -44,7 +44,7 @@ module.exports = (mongoose) => {
             bookingRequests: [bookingReq],
             coupons: [{
                 id: {
-                    type: Number,                    
+                    type: Number,
                 },
                 discountValue: Number
             }],

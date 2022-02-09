@@ -4,34 +4,34 @@ const Movie = db.movie;
 exports.findAllMovies = (req, res) => {
     const status = req.query.status;
     let queryObj = {};
-    
+
     if (status == "PUBLISHED") {
-        queryObj.published = true;        
+        queryObj.published = true;
     }
 
     else if (status == "RELEASED") {
         queryObj.released = true;
-        
-        if(req.query.title){            
+
+        if (req.query.title) {
             queryObj.title = req.query.title;
         }
 
-        if(req.query.genres){            
+        if (req.query.genres) {
             let genresArray = req.query.genres;
-            queryObj.genres = {$all: genresArray};
+            queryObj.genres = { $all: genresArray };
         }
 
-        if(req.query.artists){
-            const { first_name, last_name} = splitName(req.query.artists);
-            queryObj["artists.first_name"] = { $all: first_name};
-            queryObj["artists.last_name"] = { $all: last_name};
+        if (req.query.artists) {
+            const { first_name, last_name } = splitName(req.query.artists);
+            queryObj["artists.first_name"] = { $all: first_name };
+            queryObj["artists.last_name"] = { $all: last_name };
         }
 
-        if(req.query.start_date && req.query.end_date){
-            queryObj.release_date = {$gte: req.query.start_date, $lte: req.query.end_date}
-        }       
-       
-    }    
+        if (req.query.start_date && req.query.end_date) {
+            queryObj.release_date = { $gte: req.query.start_date, $lte: req.query.end_date }
+        }
+
+    }
     Movie.find(queryObj)
         .then(data => {
             res.status(200).send({
@@ -50,12 +50,12 @@ const splitName = (artists) => {
     const artistArray = artists.split(',');
     let first_name = [];
     let last_name = [];
-    for(let i = 0; i<artistArray.length; i++){
+    for (let i = 0; i < artistArray.length; i++) {
         let split = artistArray[i].split(" ");
         first_name.push(split[0]);
         last_name.push(split[1]);
     }
-    return {first_name, last_name};
+    return { first_name, last_name };
 }
 
 exports.findOne = (req, res) => {
