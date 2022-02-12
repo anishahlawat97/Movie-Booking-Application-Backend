@@ -36,7 +36,11 @@ require('./routes/genre.routes')(app);
 require('./routes/movie.routes')(app);
 require('./routes/user.routes')(app);
 
-const port = 8085;
-app.listen(port, () => {
-    console.log(`Server is listening on Port ${port}`);
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('MBA-Client/build'));
+}
+
+const PORT = process.env.PORT || 8085;
+app.listen(PORT, () => {
+    console.log(`Server is listening on Port ${PORT}`);
 });

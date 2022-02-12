@@ -4,7 +4,12 @@
   "description": "Backend for the movie booking application",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd MBA-Client && npm run build",
+    "install-client": "cd MBA-Client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "start": "node server.js",
+    "client": "cd MBA-Client && npm start"
   },
   "author": "Anish Ahlawat",
   "license": "ISC",
