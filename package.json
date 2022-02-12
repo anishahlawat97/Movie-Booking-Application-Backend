@@ -9,8 +9,8 @@
     "install-client": "cd MBA-Client && npm install",
     "heroku-postbuild": "npm run install-client && npm run build",
     "start": "node server.js",
-    "client": "cd MBA-Client && npm start",
-    "dev": "concurrently \"node server.js\" \"npm run client\""
+    "client": "cd MBA-Client && npm start"
+    
   },
   "author": "Anish Ahlawat",
   "license": "ISC",
